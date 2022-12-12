@@ -1,4 +1,4 @@
-struct node // структура для представления узлов дерева
+struct node 
 {
 	int key;
 	unsigned char height;
@@ -24,7 +24,7 @@ void fixheight(node* p)
 	p->height = (hl > hr ? hl : hr) + 1;
 }
 
-node* rotateright(node* p) // правый поворот вокруг p
+node* rotateright(node* p) 
 {
 	node* q = p->left;
 	p->left = q->right;
@@ -34,7 +34,7 @@ node* rotateright(node* p) // правый поворот вокруг p
 	return q;
 }
 
-node* rotateleft(node* q) // левый поворот вокруг q
+node* rotateleft(node* q)
 {
 	node* p = q->right;
 	q->right = p->left;
@@ -44,7 +44,7 @@ node* rotateleft(node* q) // левый поворот вокруг q
 	return p;
 }
 
-node* balance(node* p) // балансировка узла p
+node* balance(node* p)
 {
 	fixheight(p);
 	if (bfactor(p) == 2)
@@ -59,10 +59,10 @@ node* balance(node* p) // балансировка узла p
 			p->left = rotateleft(p->left);
 		return rotateright(p);
 	}
-	return p; // балансировка не нужна
+	return p; 
 }
 
-node* insert(node* p, int k) // вставка ключа k в дерево с корнем p
+node* insert(node* p, int k)
 {
 	if (!p) return new node(k);
 	if (k < p->key)
@@ -72,12 +72,12 @@ node* insert(node* p, int k) // вставка ключа k в дерево с корнем p
 	return balance(p);
 }
 
-node* findmin(node* p) // поиск узла с минимальным ключом в дереве p 
+node* findmin(node* p) 
 {
 	return p->left ? findmin(p->left) : p;
 }
 
-node* removemin(node* p) // удаление узла с минимальным ключом из дерева p
+node* removemin(node* p) 
 {
 	if (p->left == 0)
 		return p->right;
@@ -85,7 +85,7 @@ node* removemin(node* p) // удаление узла с минимальным ключом из дерева p
 	return balance(p);
 }
 
-node* remove(node* p, int k) // удаление ключа k из дерева p
+node* remove(node* p, int k) 
 {
 	if (!p) return 0;
 	if (k < p->key)
